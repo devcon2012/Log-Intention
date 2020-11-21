@@ -1,0 +1,6 @@
+#
+# infogopher perlcritic settings
+severity	= stern
+#verbose		= 11
+
+[-ValuesAndExpressions::ProhibitConstantPragma]
