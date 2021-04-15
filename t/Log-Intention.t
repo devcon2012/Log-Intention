@@ -11,8 +11,14 @@ use warnings;
 use Try::Tiny ;
 use Data::Dumper ;
 
-use Test::More tests => 16 ;
-BEGIN { use_ok('Log::Intention') };
+use Test::More tests => 21 ;
+BEGIN
+    {
+    use_ok('Log::Intention') ;
+    use_ok('Log::Intention::LogTarget::Stream') ;
+    use_ok('Log::Intention::LogTarget::Log4perl') ;
+    use_ok('Log::Intention::LogTarget::JournalD') ;
+    };
 
 #########################
 
@@ -94,6 +100,22 @@ catch
     ok ( 'ARRAY' eq ref $stack, "Stack is a array ref" ) ;
     ok ( ! ref $trace, "trace is a scalar" ) ;
     } ;
+
+    {
+    my $target = Log::Intention::LogTarget::Log4perl -> new ;
+    $target -> set_meta_value ("TEST" , "VALUE-L4P" ) ;
+    Log::Intention::IntentionStack -> LogTarget ( $target ) ;
+    Log::Intention::IntentionStack -> Logger ( "msg" ) ;
+    ok ( "VALUE-L4P" eq $target -> get_meta_value ("TEST"), 'META ok');
+    }
+
+    {
+    my $target = Log::Intention::LogTarget::JournalD -> new ;
+    $target -> set_meta_value ("TEST" , "VALUE-JD" ) ;
+    Log::Intention::IntentionStack -> LogTarget ( $target ) ;
+    Log::Intention::IntentionStack -> Logger ( "msg" ) ;
+    ok ( "VALUE-JD" eq $target -> get_meta_value ("TEST"), 'META ok');
+    }
 
 note ( "END" ) ;
 

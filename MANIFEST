@@ -5,6 +5,12 @@ lib/Log/Intention.pm
 lib/Log/Intention/Exception.pm
 lib/Log/Intention/IntentionStack.pm
 lib/Log/Intention/IntentionSummary.pm
+lib/Log/Intention/LogTarget.pm
+lib/Log/Intention/LogTarget/DBI.pm
+lib/Log/Intention/LogTarget/JournalD.pm
+lib/Log/Intention/LogTarget/Log4perl.pm
+lib/Log/Intention/LogTarget/Stream.pm
+lib/Log/Intention/LogTarget/Structured.pm
 LICENSE
 Makefile.PL
 README.md
