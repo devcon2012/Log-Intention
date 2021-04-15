@@ -21,7 +21,7 @@ use MooseX::ClassAttribute ;
 
 extends 'Log::Intention::IntentionSummary' ;
 
-our $VERSION = '0.1';
+our $VERSION = '1.0';
 
 use Log::Intention::IntentionStack ;
 use Log::Intention::Exception ;
@@ -138,14 +138,35 @@ Log::Intention - Intention logging
 
   use Log::Intention;
 
-  my $i = Log::Intention::NewIntention ( "Load config" ) ;
+  my $i = Log::Intention -> new  ( "Load config" ) ;
+  if ( my $cfg = read_json ($fn) )
+    {
+    $i -> Log ( 'found config' ) ;
+    }
+  else
+    {
+    $i -> Throw ( "no json in $fn" ) ;
+    }
 
 =head1 DESCRIPTION
 
-Create an intention which is then put on the Intention stack.
+Intention logging tries to help you organize your log output so it is easier to interpret for a number of audiences.
+To do so, it tries to help you make use of modern logging facilities like journald without requiring that.
+
+Log::Intention does not work (well) with Coro, because it assumes Intentions can be represented by a stack in a LIFO order.
+
+
+=head2 CONCEPTS
+
+Log::Intention log events create 'records'. Records consist of the plain message + meta information (pid, level, timestamp...).
+A structured logging target (A database, journald, ...) will recieve this data as one entry.
+A streaming log target (plain file, socket ...) will receive the message 'decorated' with (parts of) the meta information in ways
+you can specify.
+
 
 =head2 EXPORT
 
+(This is a Moose and thus has antlers...)
 
 =head1 SEE ALSO
 

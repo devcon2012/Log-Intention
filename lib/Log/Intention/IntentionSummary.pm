@@ -92,10 +92,12 @@ __END__
 
 Log::Intention::IntentionSummary - Intention base class comprising the intention data fields
 
+Summaries are not put on the intention stack.
+
 =head1 SYNOPSIS
 
   use Log::Intention::IntentionSummary ;
-  my $value_copy = $intention -> value_copy ;
+  my $value_copy = $intention -> value_copy ; # create a copy of an intentions data to be used any time later.
 
 =head1 DESCRIPTION
 

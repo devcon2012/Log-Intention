@@ -1,4 +1,5 @@
 Revision history for Perl extension Log::Intention.
 
-0.10  Sat Nov  21 13:32:46 2020
-	- started github repositroy
+0.10  Sat Nov  21 13:32:46 2020 - started github repository
+
+1.0   Thu Apr  15 16:01:00 2021 - basic functions work
